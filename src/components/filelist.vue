@@ -1018,8 +1018,8 @@ const additionalPathItem = e => {
 
 const updateFilelist = async () => {
     // 不允许路径不以/结尾
-    if (!route.path.endsWith('/')) {
-        return await router.replace(route.path + '/');
+    if (route.path.match("[/ ]*$")!==null) {
+        return await router.replace(route.path.substr(0,route.path.length-route.path.match("[/ ]*$")[0].length)+"/");
     }
     document.title = (window.__DUFS_MATERIAL_CONFIG__?.document || 'Index of ${path} - dufs').replaceAll('${path}', decodeURIComponent(removeSuffix(currentPathWithoutPrefix.value, '/')) || '/');
     let items;
